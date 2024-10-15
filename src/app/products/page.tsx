@@ -362,10 +362,10 @@ export default function Products() {
             <>
               {
                 Array(10).fill(0).map((_, ind)=> (
-                  <div className="flex items-center gap-y-4 space-4" key={ind}>
+                  <div className="flex items-center gap-x-4 m-2" key={ind}>
                     <Skeleton className="h-12 w-12 rounded-full" />
-                    <div className="space-y-2 flex-1">
-                      <Skeleton className="h-8 w-full py-4" />
+                    <div className="flex-1">
+                      <Skeleton className="h-2 w-full py-4" />
                     </div>
                   </div>
                 ))
