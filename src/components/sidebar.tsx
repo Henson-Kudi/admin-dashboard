@@ -1,14 +1,4 @@
 'use client';
-
-import {
-  Bell,
-  Bookmark,
-  Home,
-  List,
-  Mail,
-  User,
-  Users,
-} from 'lucide-react';
 import { SidebarItems } from '@/types';
 import SideBarNav from './sidebar-command';
 import Logo from './logo';

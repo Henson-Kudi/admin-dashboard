@@ -34,7 +34,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import  { productStatus, productStatusKeys } from "@/lib/constants"
+import  { productStatus, productStatusKeys } from "@/types"
 import envConf from "@/lib/env.conf"
 import Link from "next/link"
 import { Product } from "@/types"
@@ -43,6 +43,7 @@ import axios from 'axios'
 import { Skeleton } from "@/components/ui/skeleton"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import SearchSelect from "@/components/search-select"
+import ProductList from "@/components/products-list"
 
 
 export const columns: ColumnDef<Product>[] = [
@@ -249,210 +250,213 @@ export default function Products() {
 
 
   return (
-    <div className="w-full">
-      <div className="flex justify-end py-6">
-        <Link href={'/products/add-product'}>
-          <Button>
-            <Plus />
-            Add New Product
-          </Button>
-        </Link>
-      </div>
-      <div className="flex items-center py-4 gap-x-4">
-        <Input
-          placeholder="Search by name or SKU"
-          value={search}
-          onChange={(event) =>{
-            setSearch(event.target.value)
-            debounceSearch(event.target.value)
-          }
-          }
-          className="max-w-sm"
-        />
+    <>
+      <ProductList />
+    </>
+    // <div className="w-full">
+    //   <div className="flex justify-end py-6">
+    //     <Link href={'/products/add-product'}>
+    //       <Button>
+    //         <Plus />
+    //         Add New Product
+    //       </Button>
+    //     </Link>
+    //   </div>
+    //   <div className="flex items-center py-4 gap-x-4">
+    //     <Input
+    //       placeholder="Search by name or SKU"
+    //       value={search}
+    //       onChange={(event) =>{
+    //         setSearch(event.target.value)
+    //         debounceSearch(event.target.value)
+    //       }
+    //       }
+    //       className="max-w-sm"
+    //     />
 
-        <div className="flex-1 flex gap-x-2 justify-end items-center">
-          <SearchSelect
-            data={brands}
-            placeholder="Filter by brand"
-            inputPlaceHolder='Search brand by name'
-            noOptionsMessage="No brands to display"
-            onInputChange={(txt)=>{
-              setSearchBrand(txt)
-            }}
-            onSelectItem={(brand)=>{
-              setOtherQuery(prev => ({
-                ...prev,
-                brand: brand?.id ?? null
-              }))
-            }}
-          />
+    //     <div className="flex-1 flex gap-x-2 justify-end items-center">
+    //       <SearchSelect
+    //         data={brands}
+    //         placeholder="Filter by brand"
+    //         inputPlaceHolder='Search brand by name'
+    //         noOptionsMessage="No brands to display"
+    //         onInputChange={(txt)=>{
+    //           setSearchBrand(txt)
+    //         }}
+    //         onSelectItem={(brand)=>{
+    //           setOtherQuery(prev => ({
+    //             ...prev,
+    //             brand: brand?.id ?? null
+    //           }))
+    //         }}
+    //       />
 
-          <SearchSelect
-            data={productStatusList}
-            placeholder="Filter by status"
-            noOptionsMessage="No brands to display"
-            showSearchInput={false}
-            onSelectItem={(item => {
+    //       <SearchSelect
+    //         data={productStatusList}
+    //         placeholder="Filter by status"
+    //         noOptionsMessage="No brands to display"
+    //         showSearchInput={false}
+    //         onSelectItem={(item => {
               
-              setOtherQuery(prev => ({
-                ...prev,
-                status: item?.id ?? null
-              }))
-            })}
-          />
-        </div>
+    //           setOtherQuery(prev => ({
+    //             ...prev,
+    //             status: item?.id ?? null
+    //           }))
+    //         })}
+    //       />
+    //     </div>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Sort <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuCheckboxItem
-              className="capitalize"
-              checked={sorting?.key.toLowerCase() === 'name' && sorting.type === 'ASC'}
-              onCheckedChange={() =>
-                setSorting({
-                  key: 'name', type:  'ASC',
-                })
-              }
-            >
-              Name ASC
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              className="capitalize"
-              checked={sorting?.key.toLowerCase() === 'name' && sorting.type === 'DESC'}
-              onCheckedChange={() =>
-                setSorting({
-                  key: 'name', type:  'DESC',
-                })
-              }
-            >
-              Name DESC
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              className="capitalize"
-              checked={sorting?.key.toLowerCase() === 'status' && sorting.type === 'ASC'}
-              onCheckedChange={() =>
-                setSorting({
-                  key: 'status', type:  'ASC',
-                })
-              }
-            >
-              Status ASC
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              className="capitalize"
-              checked={sorting?.key.toLowerCase() === 'status' && sorting.type === 'DESC'}
-              onCheckedChange={() =>
-                setSorting({
-                  key: 'status', type:  'DESC',
-                })
-              }
-            >
-              Status DESC
-            </DropdownMenuCheckboxItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="rounded-md border">
-        {
-          isFetching ? (
-            <>
-              {
-                Array(10).fill(0).map((_, ind)=> (
-                  <div className="flex items-center gap-x-4 m-2" key={ind}>
-                    <Skeleton className="h-12 w-12 rounded-full" />
-                    <div className="flex-1">
-                      <Skeleton className="h-2 w-full py-4" />
-                    </div>
-                  </div>
-                ))
-              }
-            </>
-          ) : error ? (
-            <div>
-              Error: {error?.message}
-            </div>
-          ) : (
-            <Table>
-              <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead key={header.id}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                        </TableHead>
-                      )
-                    })}
-                  </TableRow>
-                ))}
-              </TableHeader>
-              <TableBody>
-                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
-                      No results.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          )
-        }
-      </div>
-      {
-        !isFetching && !error && <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
-      }
-    </div>
+    //     <DropdownMenu>
+    //       <DropdownMenuTrigger asChild>
+    //         <Button variant="outline" className="ml-auto">
+    //           Sort <ChevronDown className="ml-2 h-4 w-4" />
+    //         </Button>
+    //       </DropdownMenuTrigger>
+    //       <DropdownMenuContent align="end">
+    //         <DropdownMenuCheckboxItem
+    //           className="capitalize"
+    //           checked={sorting?.key.toLowerCase() === 'name' && sorting.type === 'ASC'}
+    //           onCheckedChange={() =>
+    //             setSorting({
+    //               key: 'name', type:  'ASC',
+    //             })
+    //           }
+    //         >
+    //           Name ASC
+    //         </DropdownMenuCheckboxItem>
+    //         <DropdownMenuCheckboxItem
+    //           className="capitalize"
+    //           checked={sorting?.key.toLowerCase() === 'name' && sorting.type === 'DESC'}
+    //           onCheckedChange={() =>
+    //             setSorting({
+    //               key: 'name', type:  'DESC',
+    //             })
+    //           }
+    //         >
+    //           Name DESC
+    //         </DropdownMenuCheckboxItem>
+    //         <DropdownMenuCheckboxItem
+    //           className="capitalize"
+    //           checked={sorting?.key.toLowerCase() === 'status' && sorting.type === 'ASC'}
+    //           onCheckedChange={() =>
+    //             setSorting({
+    //               key: 'status', type:  'ASC',
+    //             })
+    //           }
+    //         >
+    //           Status ASC
+    //         </DropdownMenuCheckboxItem>
+    //         <DropdownMenuCheckboxItem
+    //           className="capitalize"
+    //           checked={sorting?.key.toLowerCase() === 'status' && sorting.type === 'DESC'}
+    //           onCheckedChange={() =>
+    //             setSorting({
+    //               key: 'status', type:  'DESC',
+    //             })
+    //           }
+    //         >
+    //           Status DESC
+    //         </DropdownMenuCheckboxItem>
+    //       </DropdownMenuContent>
+    //     </DropdownMenu>
+    //   </div>
+    //   <div className="rounded-md border">
+    //     {
+    //       isFetching ? (
+    //         <>
+    //           {
+    //             Array(10).fill(0).map((_, ind)=> (
+    //               <div className="flex items-center gap-x-4 m-2" key={ind}>
+    //                 <Skeleton className="h-12 w-12 rounded-full" />
+    //                 <div className="flex-1">
+    //                   <Skeleton className="h-2 w-full py-4" />
+    //                 </div>
+    //               </div>
+    //             ))
+    //           }
+    //         </>
+    //       ) : error ? (
+    //         <div>
+    //           Error: {error?.message}
+    //         </div>
+    //       ) : (
+    //         <Table>
+    //           <TableHeader>
+    //             {table.getHeaderGroups().map((headerGroup) => (
+    //               <TableRow key={headerGroup.id}>
+    //                 {headerGroup.headers.map((header) => {
+    //                   return (
+    //                     <TableHead key={header.id}>
+    //                       {header.isPlaceholder
+    //                         ? null
+    //                         : flexRender(
+    //                             header.column.columnDef.header,
+    //                             header.getContext()
+    //                           )}
+    //                     </TableHead>
+    //                   )
+    //                 })}
+    //               </TableRow>
+    //             ))}
+    //           </TableHeader>
+    //           <TableBody>
+    //             {table.getRowModel().rows?.length ? (
+    //               table.getRowModel().rows.map((row) => (
+    //                 <TableRow
+    //                   key={row.id}
+    //                   data-state={row.getIsSelected() && "selected"}
+    //                 >
+    //                   {row.getVisibleCells().map((cell) => (
+    //                     <TableCell key={cell.id}>
+    //                       {flexRender(
+    //                         cell.column.columnDef.cell,
+    //                         cell.getContext()
+    //                       )}
+    //                     </TableCell>
+    //                   ))}
+    //                 </TableRow>
+    //               ))
+    //             ) : (
+    //               <TableRow>
+    //                 <TableCell
+    //                   colSpan={columns.length}
+    //                   className="h-24 text-center"
+    //                 >
+    //                   No results.
+    //                 </TableCell>
+    //               </TableRow>
+    //             )}
+    //           </TableBody>
+    //         </Table>
+    //       )
+    //     }
+    //   </div>
+    //   {
+    //     !isFetching && !error && <div className="flex items-center justify-end space-x-2 py-4">
+    //     <div className="flex-1 text-sm text-muted-foreground">
+    //       {table.getFilteredSelectedRowModel().rows.length} of{" "}
+    //       {table.getFilteredRowModel().rows.length} row(s) selected.
+    //     </div>
+    //     <div className="space-x-2">
+    //       <Button
+    //         variant="outline"
+    //         size="sm"
+    //         onClick={() => table.previousPage()}
+    //         disabled={!table.getCanPreviousPage()}
+    //       >
+    //         Previous
+    //       </Button>
+    //       <Button
+    //         variant="outline"
+    //         size="sm"
+    //         onClick={() => table.nextPage()}
+    //         disabled={!table.getCanNextPage()}
+    //       >
+    //         Next
+    //       </Button>
+    //     </div>
+    //   </div>
+    //   }
+    // </div>
   )
 }

@@ -1,11 +1,15 @@
 import React from 'react'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from './ui/command'
-import { LayoutDashboard, Plus } from 'lucide-react'
+import { LayoutDashboard, Plus, X } from 'lucide-react'
 import { NavCommandItem, SidebarItems } from '@/types';
 import Link from 'next/link';
 import { SidebarButton } from './sidebar-button';
 import { usePathname } from 'next/navigation';
 import { Separator } from './ui/separator';
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from './ui/drawer';
+import { Button } from './ui/button';
+import { SimpleToolTip } from './ui/tooltip';
+import AddItemsLinks from './add-item-links';
 
 interface SidebarProps {
   menu: SidebarItems;
@@ -17,11 +21,20 @@ export default function SideBarNav({menu}: SidebarProps) {
   return (
     <div>
         {/* Add New Button Start */}
-        <Link href={'/add-new'} className='flex justify-center items-center text-primary my-4'>
-          <SidebarButton variant={'default'} icon={Plus} className='border p-6'>
-            <span>Add New</span>
-          </SidebarButton>
-        </Link>
+        <AddNewButton
+          trigger={
+            <div className='text-center my-4'>
+              <SimpleToolTip
+                trigger={
+                  <Button className='mx-auto'>
+                    <Plus />
+                  </Button>
+                }
+                toolTipContent='Add New'
+              />
+            </div>
+          }
+        />
         <Separator className='h-[0.5px] ' />
 
         {/* Dashboard Start */}
@@ -105,4 +118,33 @@ function CommandElement({command, pathname}:{
                     
                 </React.Fragment>
     )
+}
+
+const AddNewButton = ({
+  trigger
+}: {
+  trigger: React.ReactNode;
+})=>{
+  const  pathname = usePathname()
+  const [open, setOpen] = React.useState(false)
+  
+  React.useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>{trigger}</DrawerTrigger>
+      <DrawerContent>
+        <DrawerClose className='text-right mr-4'>
+          <Button variant="outline"><X /></Button>
+        </DrawerClose>
+        <DrawerHeader>
+          <DrawerTitle>What do you want to add?</DrawerTitle>
+        </DrawerHeader>
+        <AddItemsLinks />
+      </DrawerContent>
+    </Drawer>
+
+  )
 }

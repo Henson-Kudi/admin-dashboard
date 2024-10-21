@@ -161,3 +161,125 @@ export enum OrderStatus {
     OUT_FOR_DELIVERY = "OUT FOR DELIVERY",
     DELIVERED = "DELIVERED",
 }
+
+export type Faq = {
+    id: string,
+    question: string,
+    answer: string,
+    createdAt: string,
+    updatedAt?: string,
+    createdById: string,
+    lastModifiedById?: string
+}
+
+export const productStatus = {
+    1: "ACTIVE",
+    2: "INACTIVE",
+    3: "DISCONTINUED",
+    4: "PENDING_APPROVAL",
+    5: "ARCHIVED",
+} as const;
+
+export const productStatusKeys = {
+    "ACTIVE": 1,
+    "INACTIVE": 2,
+    "DISCONTINUED": 3,
+    "PENDING_APPROVAL": 4,
+    "ARCHIVED": 5,
+} as const;
+
+// eslint-disable-next-line
+export type ProductStatus = (typeof productStatus)[keyof typeof productStatus];
+
+export const StockStatus = {
+    1: "OUT_OF_STOCK",
+    2: "IN_STOCK",
+} as const;
+
+// eslint-disable-next-line
+export type StockStatus = (typeof StockStatus)[keyof typeof StockStatus];
+
+export const DefaultCurrency = 'AED' as const;
+
+export type Role = {
+    id: string
+    name: string
+    slug: string
+    description?: string | null
+    createdAt: string // valid date string
+    updatedAt: string // valid date string
+    createdById: string
+    isActive: boolean
+    isDeleted: boolean
+    deletedAt?: string | null // valid date string | null
+    deletedById?: string | null
+    lastModifiedById?: string | null
+}
+
+export type Group = {
+    id: string
+    name: string
+    slug: string
+    description?: string | null
+    createdAt: string // date string
+    updatedAt: string // date string
+    createdById: string
+    isActive: boolean
+    isDeleted: boolean
+    deletedAt?: string // date string | null
+    deletedById?: string | null
+    lastModifiedById?: string | null
+}
+
+export type User = {
+    id: string
+    email: string
+    emailVerified: boolean
+    name: string
+    phone: string
+    phoneVerified: boolean
+    createdAt: string // valid date string
+    updatedAt: string // valid date string
+    isActive: boolean
+    isDeleted: boolean
+    deletedAt?: string // valid date string
+    deletedById?: string
+    lastModifiedById?: string
+    invitedById?: string
+    lastLoginAt?: string // valid date string
+    lastLoginIp?: string
+    lastLoginDevice?: string
+    lastLoginLocation?: string
+    googleId?: string
+    appleId?: string
+    photo?: string
+    deletedBy?: User
+    lastModifiedBy?: User
+    invitedBy?: User
+    roles?: Role[]
+    groups: Group[]
+}
+
+export type BlogPost = {
+    id: string
+    title: string
+    slug: string
+    content: string
+    createdBy: string
+    lastModifiedBy?: string
+    createdAt: string
+    lastUpdatedAt?: string
+    headerImage?: string
+    metaTitle?: string
+    metaDescription?: string
+    metaTags?: string
+    isActive: boolean
+    isDeleted: boolean
+    deletedAt?: string
+}
+
+export enum NODE_ENV {
+    DEVELOPMENT = "development",
+    PRODUCTION = "production",
+    TEST = "test"
+}

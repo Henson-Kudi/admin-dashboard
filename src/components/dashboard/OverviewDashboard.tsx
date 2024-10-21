@@ -2,7 +2,7 @@
 import React from 'react'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { Activity, CreditCard, DollarSign, Eye } from 'lucide-react'
-import Barchart from '../ui/barchart'
+import Barchart from '../charts/barchart'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import Link from 'next/link'

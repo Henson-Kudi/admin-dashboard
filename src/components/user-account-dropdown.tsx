@@ -18,6 +18,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { logout } from '@/app/actions'
 
 export function UserAccountDropdown() {
     const router = useRouter()
@@ -25,7 +26,8 @@ export function UserAccountDropdown() {
     const handleLogout = async()=>{
         try {
             console.log('Logged out')
-            router.push('/login')
+            const res = await logout()
+            res.success && window.location.reload()
         } catch (err) {
             console.log(err)
         }

@@ -1,5 +1,5 @@
 import { NavCommandItem } from "@/types";
-import { ChartColumnStacked, Component, ListOrdered, Ribbon, Users, Wallet } from "lucide-react";
+import { ChartColumnStacked, Component, ListOrdered, NotebookPen, NotebookText, Ribbon, Users, Wallet } from "lucide-react";
 
 export const menuData: Array<NavCommandItem> = [
     {
@@ -54,4 +54,27 @@ export const menuData: Array<NavCommandItem> = [
             label: 'Users',
         },]
     },
+    {
+        group: 'Content',
+        items: [
+            {
+                href: '/static-content',
+                icon: NotebookText,
+                label: 'Static Content',
+            },
+            {
+                href: '/blogs',
+                icon: NotebookPen,
+                label: 'Blogs',
+            },
+        ]
+    },
+    // {
+    //     // group: 'Test Group 3',
+    //     items: [{
+    //         href: '/users',
+    //         icon: Users,
+    //         label: 'Users',
+    //     },]
+    // },
 ]

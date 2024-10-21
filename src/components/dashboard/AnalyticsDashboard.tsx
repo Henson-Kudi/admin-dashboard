@@ -8,12 +8,13 @@ import { SelectValue } from '@radix-ui/react-select';
 import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { dailyVisitors, monthlyVisitors, pageViews, pageViewsBySocialMedia, yearlyVisitors } from '@/lib/constants';
+import { dailyVisitors, monthlyVisitors, pageViews, pageViewsBySocialMedia, piechartData, yearlyVisitors } from '@/lib/constants';
 import Map from '../maps';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Progress } from '../ui/progress';
 import { PageViewDemo } from './pageViewTable';
+import CustomPieChart from '../charts/Pie';
 
 type SelectedDisplay = 'daily' | 'monthly' | 'yearly';
 
@@ -125,7 +126,7 @@ export default function AnalyticsDashboard() {
         <div className='flex items-stretch gap-6 justify-between flex-wrap'>
             <Card className='flex-1'>
               <CardHeader className='flex-row items-center justify-between'>
-                <CardTitle>Top Countries</CardTitle>
+                <CardTitle>Sessions by country</CardTitle>
                 <Select defaultValue='7 days'>
                   <SelectTrigger className='max-w-sm lg:max-w-36'>
                     <SelectValue />
@@ -222,6 +223,46 @@ export default function AnalyticsDashboard() {
                 <PageViewDemo pages={pageViewsBySocialMedia} />
               </Card>
             </div>
+        </div>
+        {/* End of Geo map */}
+
+        {/* Session By Device */}
+        <div className='flex items-stretch gap-6 justify-between flex-wrap my-6'>
+          <Card className='flex-1 text-center'>
+            <CardHeader>
+                <CardTitle className='font-lg'>Visitors By Device</CardTitle>
+            </CardHeader>
+
+            <CustomPieChart data={piechartData}  />
+          </Card>
+
+          <Card className='flex-1'>
+            <CardHeader>
+                <CardTitle className='font-lg'>Live Users</CardTitle>
+                <CardDescription>(Past 30minutes)</CardDescription>
+            </CardHeader>
+            <ChartContainer config={{value: {label: 'Visitors', color: '#8680FF'}}} className="min-h-[200px] max-h-[500px] w-full">
+              <BarChart accessibilityLayer data={dailyVisitors}>
+                <CartesianGrid vertical={false} />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar dataKey="value" fill="var(--color-value)" radius={4} />
+                <XAxis
+                  dataKey={'date'}
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => value}
+                />
+                <YAxis
+                  dataKey="value"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => value}
+                />
+              </BarChart>
+            </ChartContainer>
+          </Card>
         </div>
     </div>
   )

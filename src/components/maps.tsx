@@ -53,7 +53,7 @@ export default function Map() {
         center={[0, 0]}
         zoom={2}
         className='w-full h-full bg-secondary'
-
+        zoomControl={false} // hides the zoom buttons
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

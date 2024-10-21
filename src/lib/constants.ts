@@ -1,31 +1,6 @@
-export const productStatus = {
-    1: "ACTIVE",
-    2: "INACTIVE",
-    3: "DISCONTINUED",
-    4: "PENDING_APPROVAL",
-    5: "ARCHIVED",
-} as const;
+import { Faq } from "@/types";
 
-export const productStatusKeys = {
-    "ACTIVE": 1,
-    "INACTIVE": 2,
-    "DISCONTINUED": 3,
-    "PENDING_APPROVAL": 4,
-    "ARCHIVED": 5,
-} as const;
 
-// eslint-disable-next-line
-export type ProductStatus = (typeof productStatus)[keyof typeof productStatus];
-
-export const StockStatus = {
-    1: "OUT_OF_STOCK",
-    2: "IN_STOCK",
-} as const;
-
-// eslint-disable-next-line
-export type StockStatus = (typeof StockStatus)[keyof typeof StockStatus];
-
-export const DefaultCurrency = 'AED' as const;
 
 export const dailyVisitors = [
     { date: '01', value: 168 },
@@ -181,4 +156,35 @@ export const pageViewsBySocialMedia = [
         uniques: "57",
     },
 
+]
+
+export const piechartData = [
+    { name: 'Desktop', value: 65 },
+    { name: 'Mobile', value: 12 },
+    { name: 'Tablet', value: 34 },
+    { name: 'Unknown', value: 56 },
+];
+
+export const faqs: Faq[] = [
+    {
+        question: "How do I reset my password?",
+        answer: "You can reset your password by clicking on the 'Forgot Password' link on the login page. Follow the instructions to create a new password.",
+        id: "1",
+        createdAt: '',
+        createdById: '',
+    },
+    {
+        question: "How can I contact customer support?",
+        answer: "You can contact our customer support by emailing us at support@example.com or by calling us at 00000000000000.",
+        id: "2",
+        createdAt: '',
+        createdById: '',
+    },
+    {
+        question: "What is your return policy?",
+        answer: "We accept returns within 30 days of purchase. To initiate a return, please email us at returns@example.com.",
+        id: "3",
+        createdAt: '',
+        createdById: '',
+    }
 ]

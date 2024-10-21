@@ -10,8 +10,6 @@ const allowedTabs = ['overview', 'analytics', 'reports']
 export default function Home({params, searchParams}: any) {
   const selectedTab = searchParams?.tab
 
-  console.log(searchParams?.tab, 'tab')
-
   return (
     <main className="min-h-screen">
       <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-4xl py-4">

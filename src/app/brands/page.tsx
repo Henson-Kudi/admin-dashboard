@@ -40,6 +40,7 @@ import axios from 'axios'
 import { Skeleton } from "@/components/ui/skeleton"
 import { debounce } from "lodash"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import BrandTable from "@/components/brands-list"
 
 
 export const columns: ColumnDef<Order>[] = [
@@ -158,125 +159,6 @@ export default function Brands() {
 
 
   return (
-    <div className="w-full">
-      <div className="flex justify-end py-6">
-        <Link href={'/brands/create-brand'}>
-          <Button>
-            <Plus />
-            New Brand
-          </Button>
-        </Link>
-      </div>
-      <div className="flex items-center py-4 gap-x-4">
-        <Input
-          placeholder="Search by brand name"
-          value={search}
-          onChange={(event) =>{
-            setSearch(event.target.value)
-            debounceSearch(event.target.value)
-          }
-          }
-          className="max-w-sm"
-        />
-      </div>
-      <div className="rounded-md border">
-        {
-          isFetching ? (
-            <>
-              {
-                Array(10).fill(0).map((_, ind)=> (
-                  <div className="flex items-center gap-y-4 space-4" key={ind}>
-                    <Skeleton className="h-12 w-12 rounded-full" />
-                    <div className="space-y-2 flex-1">
-                      <Skeleton className="h-8 w-full py-4" />
-                    </div>
-                  </div>
-                ))
-              }
-            </>
-          ) : !isFetching && !error ? (
-            <Table>
-              <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead key={header.id}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                        </TableHead>
-                      )
-                    })}
-                  </TableRow>
-                ))}
-              </TableHeader>
-              <TableBody>
-                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
-                      No results.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          ) : (
-            <div>
-              Error: {error?.message}
-              {/* Here we want to display server error page */}
-            </div>
-          )
-        }
-      </div>
-      {
-        !isFetching && !error && <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
-      }
-    </div>
+    <BrandTable />
   )
 }
