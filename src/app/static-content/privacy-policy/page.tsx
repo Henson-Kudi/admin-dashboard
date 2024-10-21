@@ -1,5 +1,5 @@
 'use client'
-import TextEditor from '@/components/editor'
+// import TextEditor from '@/components/editor'
 import { head } from 'lodash'
 import { Delta } from 'quill/core'
 import React from 'react'
@@ -10,21 +10,21 @@ export default function PrivacyPolicyPage() {
 
     }
 
-    const delta = new Delta(
-        [
-            {insert: 'Privacy Policy Heading'},
-            {
-              attributes: {
-                header: 1
-              },
-              insert: '\n'
-            }
-        ]
-    )
+    // const delta = new Delta(
+    //     [
+    //         {insert: 'Privacy Policy Heading'},
+    //         {
+    //           attributes: {
+    //             header: 1
+    //           },
+    //           insert: '\n'
+    //         }
+    //     ]
+    // )
 
   return (
     <div>
-        <TextEditor handleSubmit={submitData} value={delta} />
+        {/* <TextEditor handleSubmit={submitData} /> */}
     </div>
   )
 }

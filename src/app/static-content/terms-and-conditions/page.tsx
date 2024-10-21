@@ -1,5 +1,5 @@
 'use client'
-import TextEditor from '@/components/editor'
+// import TextEditor from '@/components/editor'
 import { Delta } from 'quill/core'
 import React from 'react'
 
@@ -23,7 +23,7 @@ export default function TermsAndConditions() {
 
   return (
     <div>
-        <TextEditor handleSubmit={submitData} value={delta} />
+        {/* <TextEditor handleSubmit={submitData} value={delta} /> */}
     </div>
   )
 }
