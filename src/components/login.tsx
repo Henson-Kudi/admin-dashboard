@@ -198,7 +198,7 @@ export default function Login() {
             </Button>
           </div>
           <p className="px-8 text-center text-sm text-muted-foreground my-4">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/auth/register"
               className="underline underline-offset-4 hover:text-primary"

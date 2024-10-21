@@ -37,7 +37,7 @@ export default function GlobalError({
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white px-4">
           <div className="text-center relative z-10 max-w-2xl">
             <AlertTriangle className="w-20 h-20 text-yellow-400 mx-auto mb-6 animate-bounce" />
-            <h1 className="text-4xl font-bold mb-4">Houston, We've Got a Problem!</h1>
+            <h1 className="text-4xl font-bold mb-4">Houston, We&apos;ve Got a Problem!</h1>
             <p className="text-xl mb-6">An unexpected error has occurred in our space station.</p>
             <div className="bg-gray-800 p-4 rounded-lg mb-6">
               <p className="text-sm text-gray-400">Error details:</p>

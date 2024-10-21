@@ -31,7 +31,7 @@ export default function NotFound() {
         <p className="text-2xl font-semibold mb-6">Houston, we have a problem!</p>
         <p className="text-lg mb-8 max-w-md">
           It seems your spacecraft has drifted into uncharted space. 
-          The page you're looking for has been lost in a black hole.
+          The page you&apos;re looking for has been lost in a black hole.
         </p>
         <Link href="/">
           <Button className="bg-blue-500 hover:bg-blue-600 text-white">
@@ -39,7 +39,7 @@ export default function NotFound() {
           </Button>
         </Link>
         <p className="mt-4 text-sm">
-          While you're here, try catching the UFO! Score: {score}
+          While you&apos;re here, try catching the UFO! Score: {score}
         </p>
       </div>
 

@@ -6,10 +6,13 @@ import { Button } from './ui/button';
 import ReactQuill, {ReactQuillProps, Value} from 'react-quill'
 import { Delta } from 'quill/core';
 import SimpleDialog from './modals/simple-dialog';
+
 const QuillEditor = dynamic(async () => {
     const { default: RQ } = await import("react-quill");
 
-    return ({ forwardedRef,  ...props }: ReactQuillProps & {forwardedRef: React.MutableRefObject<ReactQuill | null>}) => <RQ ref={forwardedRef} {...props} />;
+    const Component = ({ forwardedRef,  ...props }: ReactQuillProps & {forwardedRef: React.MutableRefObject<ReactQuill | null>}) => <RQ ref={forwardedRef} {...props} />
+
+    return Component;
   },
   {
     ssr: false,
@@ -115,7 +118,7 @@ export default function TextEditor({
         <div className='ql-submitButton ml-auto float-right mr-2 mt-1.5 flex gap-2 items-center'>
             <SimpleDialog
                 triggerComponent={'Preview'}
-                children={<div dangerouslySetInnerHTML={{__html: htmlContent}}/>}
+                
                 onOpenChange={(state)=>{
                     if (!state) {
                         setHtmlContent('')
@@ -123,7 +126,9 @@ export default function TextEditor({
                         handlePreviewHtml()
                     }
                 }}
-            />
+            >
+                {<div dangerouslySetInnerHTML={{__html: htmlContent}}/>}
+            </SimpleDialog>
             <Button
               className=" bg-green-400"
               onClick={handleSave}

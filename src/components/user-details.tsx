@@ -265,7 +265,7 @@ export default function ClientDetails({ params }: { params: { id: string } }) {
           <Card>
             <CardHeader>
               <CardTitle>Recent Orders</CardTitle>
-              <CardDescription>The user's most recent orders.</CardDescription>
+              <CardDescription>The user&apos;s most recent orders.</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
@@ -316,7 +316,7 @@ export default function ClientDetails({ params }: { params: { id: string } }) {
           <Card>
             <CardHeader>
               <CardTitle>Client Analytics</CardTitle>
-              <CardDescription>Insights and statistics about the client's behavior.</CardDescription>
+              <CardDescription>Insights and statistics about the client&apos;s behavior.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-6 grid-cols-2">
@@ -370,7 +370,7 @@ export default function ClientDetails({ params }: { params: { id: string } }) {
           <Card>
             <CardHeader>
               <CardTitle>Security Settings</CardTitle>
-              <CardDescription>Manage user's security settings and connected accounts.</CardDescription>
+              <CardDescription>Manage user&apos;s security settings and connected accounts.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
@@ -409,7 +409,7 @@ export default function ClientDetails({ params }: { params: { id: string } }) {
           <Card>
             <CardHeader>
               <CardTitle>User Permissions</CardTitle>
-              <CardDescription>Manage user's roles and group memberships.</CardDescription>
+              <CardDescription>Manage user&apos;s roles and group memberships.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>

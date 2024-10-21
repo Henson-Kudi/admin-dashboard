@@ -49,7 +49,7 @@ export default async function RootLayout({children}: Readonly<{
                 >
 
                   {
-                    user ? <AuthenticatedLayout children={children} /> : <NonAuthenticatedLayout children={children} />
+                    user ? <AuthenticatedLayout>{children}</AuthenticatedLayout> : <NonAuthenticatedLayout>{children}</NonAuthenticatedLayout>
                   }
 
                 </div>

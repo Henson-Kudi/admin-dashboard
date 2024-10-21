@@ -192,7 +192,6 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const user = row.original
-      const router = useRouter()
 
       return (
         <DropdownMenu>
@@ -204,10 +203,8 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => router.push(`/users/${user.id}`)}
-            >
-              View details
+            <DropdownMenuItem>
+              <Link href={`/users/${user.id}`}>View details</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>Edit user</DropdownMenuItem>
             <DropdownMenuSeparator />
