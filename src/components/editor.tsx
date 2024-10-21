@@ -3,7 +3,7 @@ import React, { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'; //editor styles
 import { Button } from './ui/button';
-import ReactQuill, {ReactQuillProps, Value} from 'react-quill'
+import ReactQuill, {ReactQuillProps } from 'react-quill'
 import { Delta } from 'quill/core';
 import SimpleDialog from './modals/simple-dialog';
 
