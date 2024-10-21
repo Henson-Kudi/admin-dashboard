@@ -1,6 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { faqs as Faqs } from '@/lib/constants'
-import { Faq } from '@/types'
 import React from 'react'
 
 export default function FaqPage() {

@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { Inter } from "next/font/google";
 import '@/styles/globals.css'
 import { cn } from "@/lib/utils"
-import PageHeader from "@/components/page-header";
-import { Sidebar } from "@/components/sidebar";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { ReactQueryProvider } from "./providers";
 import { ThemeProvider } from "@/components/theme-provider";
 import NextTopLoader from 'nextjs-toploader';
