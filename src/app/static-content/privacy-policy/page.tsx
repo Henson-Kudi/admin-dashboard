@@ -1,7 +1,7 @@
 'use client'
-// import TextEditor from '@/components/editor'
-import { head } from 'lodash'
-import { Delta } from 'quill/core'
+import TextEditor from '@/components/editor'
+// import { head } from 'lodash'
+// import { Delta } from 'quill/core'
 import React from 'react'
 
 export default function PrivacyPolicyPage() {
@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div>
-        {/* <TextEditor handleSubmit={submitData} /> */}
+        <TextEditor handleSubmit={submitData} />
     </div>
   )
 }
