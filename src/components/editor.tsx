@@ -33,23 +33,25 @@ export default function TextEditor({
     const [htmlContent, setHtmlContent] = useState<string | TrustedHTML>('')
 
     const imageHandler = () => {
-        const input = document.createElement("input");
-        input.setAttribute("type", "file");
-        input.setAttribute("accept", "image/*");
-        input.click();
+        if (typeof window !== 'undefined') {
+            const input = document.createElement("input");
+            input.setAttribute("type", "file");
+            input.setAttribute("accept", "image/*");
+            input.click();
 
-        input.onchange = () => {
-            if (input.files?.length) {
-                const file = input?.files[0];
+            input.onchange = () => {
+                if (input.files?.length) {
+                    const file = input?.files[0];
 
-                // file type is only image.
-                if (/^image\//.test(file.type)) {
-                    saveToServer(file);
-                } else {
-                    console.warn("You could only upload images.");
+                    // file type is only image.
+                    if (/^image\//.test(file.type)) {
+                        saveToServer(file);
+                    } else {
+                        console.warn("You could only upload images.");
+                    }
                 }
-            }
-        };
+            };
+        }
     };
 
     const handleSave = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
