@@ -32,7 +32,7 @@ export default async function RootLayout({children}: Readonly<{
           <NextTopLoader />
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
