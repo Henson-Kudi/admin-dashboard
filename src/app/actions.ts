@@ -1,5 +1,5 @@
 'use server'
-
+import { redirect } from 'next/navigation'
 import api from '@/lib/api'
 import envConf from '@/lib/env.conf'
 import { NODE_ENV } from '@/types'
@@ -17,12 +17,17 @@ export async function login(data: { [key: string]: string }) {
                 maxAge: 84600 * 7,
                 path: '/',
             })
+            // return redirect('/')
             return {
                 success: true, data: { id: '1234567890', email: 'test@example.com', name: 'Test User', code: 201 }
             }
         }
 
-        return { success: false, error: { message: `Invalid credentials` } }
+        // We have to redirect from the server. if response code is 300, then redirect to verify otp else if success, redirect to home
+
+        
+
+        return { success: false, error: { message: `Invalid credentials` }, data: null }
 
 
         // const { data: result } = await api.post('/users-service/auth/login', data)
@@ -43,7 +48,7 @@ export async function login(data: { [key: string]: string }) {
 
         // return result // {success: boolean, data?: any, error?: any}
     } catch (err: any) {
-        return { success: false, error: { message: `${err?.response?.data?.code} ${err?.response?.data?.message}` } }
+        return { data:null, success: false, error: { message: `${err?.response?.data?.code} ${err?.response?.data?.message}` } }
     }
 }
 
@@ -53,6 +58,8 @@ export async function register(data: { [key: string]: string }) {
         const { data: result } = await api.post('/users-service/auth/register', data)
 
         otpUser = result?.data
+
+        redirect('/')
 
         return result // {success: boolean, data?: any, error?: any}
     } catch (err: any) {
@@ -80,6 +87,7 @@ export async function verifyOtp(data: { [key: string]: string }) {
 
 export async function logout() {
     cookies().delete('refresh-token')
+    redirect('/auth/login')
     return { success: true }
 }
 

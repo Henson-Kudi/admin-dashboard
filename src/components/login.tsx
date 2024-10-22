@@ -63,15 +63,18 @@ export default function Login() {
         description: result.error?.message ?? result?.error,
         variant: "destructive",
       })
-    } else if (result.data?.code === 300) {
+    } 
+    else if (result.data?.code === 300) {
       console.log('rerouting')
       router.replace('/auth/verify-otp')
+      
     } else {
-      // router.replace("/", { scroll: true})
-      window.location.href = '/'
+      router.replace("/", { scroll: true})
+      router.refresh()
+      // window.location.href = '/'
     }
 
-    setIsLoading(false)
+    // setIsLoading(false)
   }
 
   return (

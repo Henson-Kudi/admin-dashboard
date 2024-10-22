@@ -27,7 +27,7 @@ export function UserAccountDropdown() {
         try {
             console.log('Logged out')
             const res = await logout()
-            res.success && window.location.reload()
+            // res.success && window.location.reload()
         } catch (err) {
             console.log(err)
         }
