@@ -55,7 +55,7 @@ export default function ReportsDashboard() {
   })
 
   return (
-    <div className="container mx-auto p-6 space-y-8">
+    <div className="mx-auto p-6 space-y-8">
       <div className="flex justify-end">
         <DatePickerWithRange date={date} setDate={setDate} />
       </div>
@@ -163,7 +163,7 @@ export default function ReportsDashboard() {
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              className="h-[300px]"
+              className="h-[300px] w-full"
             >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={salesData}>
@@ -189,7 +189,7 @@ export default function ReportsDashboard() {
                   color: "hsl(var(--chart-2))",
                 },
               }}
-              className="h-[300px]"
+              className="h-[300px] w-full"
             >
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={orderData}>

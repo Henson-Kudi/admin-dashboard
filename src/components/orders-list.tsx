@@ -225,7 +225,7 @@ export default function OrdersList() {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="mx-auto">
       <h1 className="text-3xl font-bold mb-6">Orders</h1>
       <Card className="mb-6">
         <CardHeader>

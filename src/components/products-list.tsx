@@ -30,6 +30,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import Link from "next/link"
 import { Product } from "@/types"
 import { SimpleToolTip } from "./ui/tooltip"
+import { CustomScrollbar } from "./ui/custom-scrollbar"
+import { Table, TableBody, TableHeader, TableRow } from "./ui/table"
 
 // Mock getProducts function
 const getProducts = async (): Promise<Partial<Product>[]> => {
@@ -238,7 +240,7 @@ export default function ProductList() {
   if (isError) return <div>Error loading products</div>
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <CustomScrollbar className="mx-auto py-8 overflow-x-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Products</h1>
         <SimpleToolTip
@@ -261,7 +263,7 @@ export default function ProductList() {
             className="max-w-sm"
           />
         </div>
-        <div className="flex flex-col md:flex-row gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by status" />
@@ -287,10 +289,10 @@ export default function ProductList() {
       </div>
 
       <div className="border rounded-lg">
-        <table className="w-full">
-          <thead>
+        <Table className="w-full">
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th key={header.id} className="px-4 py-2 text-left">
                     {header.isPlaceholder
@@ -301,21 +303,21 @@ export default function ProductList() {
                         )}
                   </th>
                 ))}
-              </tr>
+              </TableRow>
             ))}
-          </thead>
-          <tbody>
+          </TableHeader>
+          <TableBody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
+              <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-4 py-2">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
-              </tr>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
 
       <div className="flex items-center justify-end space-x-2 py-4">
@@ -336,6 +338,6 @@ export default function ProductList() {
           Next
         </Button>
       </div>
-    </div>
+    </CustomScrollbar>
   )
 }

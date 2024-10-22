@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
+import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { Activity, CreditCard, DollarSign, Eye } from 'lucide-react'
 import Barchart from '../charts/barchart'
 import { Avatar, AvatarFallback } from '../ui/avatar'
@@ -11,8 +11,8 @@ export default function OverviewDashboard() {
   return (
     <>
     {/* Cards */}
-    <div className='flex items-center  justify-between gap-4 my-4'>
-        <Card className='flex-1'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center'>
+        <Card className='w-full'>
             <CardHeader className='flex-row items-center justify-between pb-1'>
                 <p className="font-semibold">Total Revenue</p>
                 <DollarSign size={20} />
@@ -23,7 +23,7 @@ export default function OverviewDashboard() {
           </CardHeader>
         </Card>
 
-        <Card className='flex-1'>
+        <Card className='w-full'>
             <CardHeader className='flex-row items-center justify-between pb-1'>
                 <p className="font-semibold">Page Views</p>
                 <Eye size={20} />
@@ -34,7 +34,7 @@ export default function OverviewDashboard() {
           </CardHeader>
         </Card>
 
-        <Card className='flex-1'>
+        <Card className='w-full'>
             <CardHeader className='flex-row items-center justify-between pb-1'>
                 <p className="font-semibold">Sales</p>
                 <CreditCard size={20} />
@@ -45,7 +45,7 @@ export default function OverviewDashboard() {
           </CardHeader>
         </Card>
 
-        <Card className='flex-1'>
+        <Card className='w-full'>
             <CardHeader className='flex-row items-center justify-between pb-1'>
                 <p className="font-semibold">Active Now</p>
                 <Activity size={20} />
@@ -58,7 +58,7 @@ export default function OverviewDashboard() {
     </div>
 
     {/* Sales Chart and Recent sales */}
-    <div className='flex gap-4 my-4'>
+    <div className='flex flex-col lg:flex-row gap-4 my-4'>
         {/* Sales Chart */}
         <Card className='flex-1'>
             <CardHeader>

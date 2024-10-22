@@ -13,9 +13,10 @@ import AddItemsLinks from './add-item-links';
 
 interface SidebarProps {
   menu: SidebarItems;
+  isCollapsed: boolean;
 }
 
-export default function SideBarNav({menu}: SidebarProps) {
+export default function SideBarNav({menu, isCollapsed}: SidebarProps) {
     const pathname = usePathname();
 
   return (
@@ -44,7 +45,7 @@ export default function SideBarNav({menu}: SidebarProps) {
           icon={LayoutDashboard}
           className='w-full py-6'
           >
-            <span>Dashboard</span>
+            {!isCollapsed && <span>Dashboard</span>}
           </SidebarButton>
         </Link>
 
@@ -52,12 +53,12 @@ export default function SideBarNav({menu}: SidebarProps) {
         <div className='uppercase p-4 text-slate-400'>Menu</div>
         <Separator className='h-[0.5px] ' />
         <Command>
-          <CommandInput placeholder="Type to search..." />
+          {!isCollapsed && <CommandInput placeholder="Type to search..." />}
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandList className='max-h-max'>
             {
                 menu.links.map((item, ind)=>(
-                    <CommandElement command={item} pathname={pathname} key={ind} />
+                    <CommandElement isCollapsed={isCollapsed} command={item} pathname={pathname} key={ind} />
                 ))
             }
           </CommandList>
@@ -66,9 +67,10 @@ export default function SideBarNav({menu}: SidebarProps) {
   )
 }
 
-function CommandElement({command, pathname}:{
+function CommandElement({command, pathname, isCollapsed}:{
     command: NavCommandItem,
     pathname: string,
+    isCollapsed: boolean
 }){
     return (
         <React.Fragment>
@@ -84,7 +86,7 @@ function CommandElement({command, pathname}:{
                                           icon={link?.icon}
                                           className='w-full'
                                         >
-                                          {link.label}
+                                          {!isCollapsed && link.label}
                                         </SidebarButton>
                                       </Link>
                                 </CommandItem>
@@ -104,7 +106,7 @@ function CommandElement({command, pathname}:{
                                           icon={link?.icon}
                                           className='w-full'
                                         >
-                                          {link.label}
+                                          {!isCollapsed && link.label}
                                         </SidebarButton>
                                       </Link>
                                 </CommandItem>
