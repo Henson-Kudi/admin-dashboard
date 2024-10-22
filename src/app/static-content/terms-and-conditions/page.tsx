@@ -13,7 +13,7 @@ export default function TermsAndConditions() {
     }
 
     useEffect(()=>{
-      if (window && typeof window !== 'undefined') {
+      if (typeof window !== 'undefined') {
         setValue(new Delta(
             [
                 {insert: 'Terms and Conditions Heading'},
