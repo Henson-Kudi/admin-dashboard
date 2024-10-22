@@ -1,9 +1,12 @@
 'use client'
+
 import TextEditor from '@/components/editor'
 import { Delta } from 'quill/core'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function PrivacyPolicyPage() {
+  const [value, setValue] = useState<Delta | undefined>()
+
     const  submitData = function(params:any){
         console.log(params)
 
@@ -11,7 +14,7 @@ export default function PrivacyPolicyPage() {
 
     useEffect(()=>{
       if (window && typeof window !== 'undefined') {
-        const delta = new Delta(
+        setValue(new Delta(
             [
                 {insert: 'Terms and Conditions Heading'},
                 {
@@ -21,13 +24,13 @@ export default function PrivacyPolicyPage() {
                   insert: '\n'
                 }
             ]
-        )
+        ))
       }
     }, [])
 
   return (
     <div>
-        <TextEditor handleSubmit={submitData} />
+        <TextEditor handleSubmit={submitData} value={value} />
     </div>
   )
 }
