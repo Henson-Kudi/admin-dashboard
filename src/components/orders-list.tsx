@@ -115,7 +115,7 @@ export default function OrdersList() {
     {
       accessorKey: 'refNumber',
       header: 'Order Ref',
-      cell: info => <Link className='text-blue-600 hover:underline' href={`${envConf.baseUrl}/orders/${info.row.original.id}`}>{info.getValue() as string}</Link>
+      cell: info => <Link className='text-blue-600 hover:underline' href={`/orders/${info.row.original.id}`}>{info.getValue() as string}</Link>
     },
     {
       accessorKey: 'name',

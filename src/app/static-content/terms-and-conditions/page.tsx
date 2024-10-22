@@ -1,7 +1,7 @@
 'use client'
 import TextEditor from '@/components/editor'
-// import { Delta } from 'quill/core'
-import React from 'react'
+import { Delta } from 'quill/core'
+import React, { useEffect } from 'react'
 
 export default function TermsAndConditions() {
     const  submitData = function(params:any){
@@ -9,17 +9,23 @@ export default function TermsAndConditions() {
 
     }
 
-    // const delta = new Delta(
-    //     [
-    //         {insert: 'Terms and Conditions Heading'},
-    //         {
-    //           attributes: {
-    //             header: 1
-    //           },
-    //           insert: '\n'
-    //         }
-    //     ]
-    // )
+    useEffect(()=>{
+      if (window && typeof window !== 'undefined') {
+        const delta = new Delta(
+            [
+                {insert: 'Terms and Conditions Heading'},
+                {
+                  attributes: {
+                    header: 1
+                  },
+                  insert: '\n'
+                }
+            ]
+        )
+      }
+    }, [])
+
+    
 
   return (
     <div>
