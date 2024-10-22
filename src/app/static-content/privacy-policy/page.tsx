@@ -2,7 +2,7 @@
 
 import TextEditor from '@/components/editor'
 import { Delta } from 'quill/core'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 export default function PrivacyPolicyPage() {
   const [value, setValue] = useState<Delta | undefined>()
@@ -11,22 +11,6 @@ export default function PrivacyPolicyPage() {
         console.log(params)
 
     }
-
-    useEffect(()=>{
-      if (typeof window !== 'undefined') {
-        setValue(new Delta(
-            [
-                {insert: 'Terms and Conditions Heading'},
-                {
-                  attributes: {
-                    header: 1
-                  },
-                  insert: '\n'
-                }
-            ]
-        ))
-      }
-    }, [])
 
   return (
     <div>
